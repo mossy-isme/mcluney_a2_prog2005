@@ -205,7 +205,16 @@ function clientIDSearch(): void {
 // Display a message
 function displayMessage(message: string, type: 'success' | 'error'): void {
   const msgDiv = document.createElement('div');
-  msgDiv.textContent = message;
+  msgDiv.innerHTML = "<p style='text-align: centre'>"+message+"</p>";
+  msgDiv.style.position = "absolute";
+  msgDiv.style.top = "50%";
+  msgDiv.style.left = "45%";
+  msgDiv.style.width = "10%";
+  msgDiv.style.height = "8%";
+  msgDiv.style.backgroundColor = "lightgray";
+  msgDiv.style.fontWeight = "bold";
+  msgDiv.style.textAlign = "center";
+  msgDiv.style.borderRadius = "25px";
   msgDiv.style.color = type === 'success' ? 'green' : 'red';
   document.body.prepend(msgDiv);
   setTimeout(() => msgDiv.remove(), 3000);
@@ -214,6 +223,15 @@ function displayMessage(message: string, type: 'success' | 'error'): void {
 //Edit client
 function editClient(id: Number) {
   document.querySelectorAll("#client-card-" + id.toString() + " *:disabled").forEach((input) => input.removeAttribute("disabled"))
+}
+
+
+//Delete client
+function deleteClient(id: Number) {
+  confirmDialog(); //TO-DO
+  clients = clients.filter(function(e) {return e.clientID.toString() !== id.toString()})
+  displayClients()
+  displayMessage('Client deleted sucessfully!', 'success');
 }
 
 //Update client

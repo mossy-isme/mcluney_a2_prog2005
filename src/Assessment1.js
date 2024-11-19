@@ -93,7 +93,16 @@ function clientIDSearch() {
 // Display a message
 function displayMessage(message, type) {
     var msgDiv = document.createElement('div');
-    msgDiv.textContent = message;
+    msgDiv.innerHTML = "<p style='text-align: centre'>" + message + "</p>";
+    msgDiv.style.position = "absolute";
+    msgDiv.style.top = "50%";
+    msgDiv.style.left = "45%";
+    msgDiv.style.width = "10%";
+    msgDiv.style.height = "8%";
+    msgDiv.style.backgroundColor = "lightgray";
+    msgDiv.style.fontWeight = "bold";
+    msgDiv.style.textAlign = "center";
+    msgDiv.style.borderRadius = "25px";
     msgDiv.style.color = type === 'success' ? 'green' : 'red';
     document.body.prepend(msgDiv);
     setTimeout(function () { return msgDiv.remove(); }, 3000);
@@ -101,6 +110,12 @@ function displayMessage(message, type) {
 //Edit client
 function editClient(id) {
     document.querySelectorAll("#client-card-" + id.toString() + " *:disabled").forEach(function (input) { return input.removeAttribute("disabled"); });
+}
+//Delete client
+function deleteClient(id) {
+    clients = clients.filter(function (e) { return e.clientID.toString() !== id.toString(); });
+    displayClients();
+    displayMessage('Client deleted sucessfully!', 'success');
 }
 //Update client
 function updateClient(id) {
