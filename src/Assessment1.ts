@@ -116,9 +116,11 @@ class Client {
         .value || undefined;
     const isVIP = (document.getElementById('isVIP') as HTMLInputElement).checked;
   
-    if (clients.find(c => c.clientID === clientID)) {
-      displayMessage('Client ID must be unique!', 'error');
-      return;
+    for (let i in clients) {
+      if (i == clientID.toString()) {
+        displayMessage('Client ID must be unique!', 'error');
+        return;
+      }
     }
   
     const client = new Client(
