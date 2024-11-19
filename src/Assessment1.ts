@@ -221,7 +221,7 @@ function updateClient(id: Number) {
   document.querySelectorAll("#client-card-" + id.toString() + " .editable").forEach((input) => input.setAttribute("disabled", ""))
 
   const name = (document.getElementById('name-' + id.toString()) as HTMLInputElement).value;
-  
+
   const gender = (document.getElementById('gender-' + id.toString()) as HTMLSelectElement)
     .value as 'Male' | 'Female' | 'Unspecified';
   const fitnessProgram = (
