@@ -45,9 +45,6 @@ function addClient() {
     var specialHealthNotes = document.getElementById('specialHealthNotes')
         .value || undefined;
     var isVIP = document.getElementById('isVIP').checked;
-    console.log(clientID);
-    console.log(clients.filter(function (client) { return client.clientID == clientID; }).length != 0);
-    console.log(clients.filter(function (client) { return client.clientID == clientID; }));
     if (clients.filter(function (client) { return client.clientID == clientID; }).length != 0) {
         displayMessage('Client ID must be unique!', 'error');
         return;
@@ -66,11 +63,25 @@ function displayClients() {
 }
 // Display VIP clients
 function displayVIPClients() {
-    var display = document.getElementById('vipClientList');
+    var display = document.getElementById('clientList');
     display.innerHTML = clients
         .filter(function (client) { return client.isVIP; })
         .map(function (client) { return client.displayClientInfo(); })
         .join('');
+}
+// case insensitive search of n-number properties of type T
+// returns true if at least one of the property values includes the query value
+function clientSearch(object, properties, query) {
+    if (query === "") {
+        return true;
+    }
+    return properties.some(function (property) {
+        var value = object[property];
+        if (typeof value === "string" || typeof value === "number") {
+            return value.toString().toLowerCase().includes(query.toLowerCase());
+        }
+        return false;
+    });
 }
 // Display a message
 function displayMessage(message, type) {
