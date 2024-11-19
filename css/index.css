@@ -1,4 +1,11 @@
 
+:disabled:not(.checkbox) {
+    all: unset;
+}
+
+#updateButton:disabled {
+    color:darkgray
+}
 
 .client-card {
     display: block;
