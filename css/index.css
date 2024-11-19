@@ -1,5 +1,18 @@
+
+
+.client-card {
+    display: block;
+    padding: 1%;
+    background-color: rgb(230,230,230);
+    border-radius: 25px;
+    margin: 1%;
+    width:25%;
+} 
+
 body {
-    color: #fcbe24;
+
     margin: 0;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    
   }
   
