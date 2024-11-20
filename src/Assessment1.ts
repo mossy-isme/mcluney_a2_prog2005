@@ -66,10 +66,10 @@ class Client {
     } else {
       var checked = ""
     };
-    if (this.specialHealthNotes != "") {
-      var notes = this.specialHealthNotes?.toString()
-    } else {
+    if (this.specialHealthNotes == null || "") {
       var notes = "None given"
+    } else {
+      var notes = this.specialHealthNotes?.toString()
     }
     return `
         <div class="client-card" id="client-card-${this.clientID}">
@@ -227,12 +227,88 @@ function editClient(id: Number) {
 
 
 //Delete client
-function deleteClient(id: Number) {
-  confirmDialog(); //TO-DO
-  clients = clients.filter(function(e) {return e.clientID.toString() !== id.toString()})
-  displayClients()
-  displayMessage('Client deleted sucessfully!', 'success');
+async function deleteClient(id: Number) {
+  const confirmed = await confirmDialog(); // Wait for user response
+  if (confirmed) {
+    clients = clients.filter(client => client.clientID !== id);
+    displayClients();
+    displayMessage('Client deleted successfully!', 'success');
+  } else {
+    displayMessage('Client deletion cancelled.', 'error');
+  }
 }
+
+//Confirm dialog for deletion
+function confirmDialog(): Promise<boolean> {
+  return new Promise((resolve) => {
+    // Create the modal backdrop
+    const modalBackdrop = document.createElement('div');
+    modalBackdrop.style.position = 'fixed';
+    modalBackdrop.style.top = '0';
+    modalBackdrop.style.left = '0';
+    modalBackdrop.style.width = '100%';
+    modalBackdrop.style.height = '100%';
+    modalBackdrop.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    modalBackdrop.style.display = 'flex';
+    modalBackdrop.style.justifyContent = 'center';
+    modalBackdrop.style.alignItems = 'center';
+    modalBackdrop.style.zIndex = '9999';
+
+    // Create the modal content
+    const modalContent = document.createElement('div');
+    modalContent.style.backgroundColor = 'white';
+    modalContent.style.borderRadius = '8px';
+    modalContent.style.padding = '20px';
+    modalContent.style.width = '300px';
+    modalContent.style.textAlign = 'center';
+    modalContent.style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)';
+
+    // Add content to modal
+    const message = document.createElement('p');
+    message.innerText = 'Are you sure you want to delete this client?';
+    modalContent.appendChild(message);
+
+    // Add "Yes" button
+    const yesButton = document.createElement('button');
+    yesButton.innerText = 'Yes';
+    yesButton.style.margin = '10px';
+    yesButton.style.padding = '10px';
+    yesButton.style.backgroundColor = 'green';
+    yesButton.style.color = 'white';
+    yesButton.style.border = 'none';
+    yesButton.style.borderRadius = '4px';
+    yesButton.style.cursor = 'pointer';
+    yesButton.onclick = () => {
+      modalBackdrop.remove();
+      resolve(true);
+    };
+    modalContent.appendChild(yesButton);
+
+    // Add "No" button
+    const noButton = document.createElement('button');
+    noButton.innerText = 'No';
+    noButton.style.margin = '10px';
+    noButton.style.padding = '10px';
+    noButton.style.backgroundColor = 'red';
+    noButton.style.color = 'white';
+    noButton.style.border = 'none';
+    noButton.style.borderRadius = '4px';
+    noButton.style.cursor = 'pointer';
+    noButton.onclick = () => {
+      modalBackdrop.remove();
+      resolve(false);
+    };
+    modalContent.appendChild(noButton);
+
+    // Append modal content to modal backdrop
+    modalBackdrop.appendChild(modalContent);
+
+    // Append modal to document body
+    document.body.appendChild(modalBackdrop);
+  });
+}
+
+
 
 //Update client
 function updateClient(id: Number) {

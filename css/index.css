@@ -8,21 +8,46 @@
 }
 
 #clientList {
-    display: flex;
-    column-count: 3;
+    float: right;
+    width: 65%;
+    
 }
 
 .client-card {
     display: block;
+    float:left;
     padding: 1%;
     background-color: rgb(230,230,230);
     border-radius: 25px;
     margin: 1%;
-    width:33%;
+    width:25%;
+    line-height:normal;
 } 
 
-body {
+.container {
+    width: 100%;
+}
 
+#addClientForm {
+    float:left;
+    width: 25%;
+    margin: 0% 5%;
+}
+
+#clientSearchContainer {
+    
+    height:100vh;
+}
+
+#searchFormContainer {
+    
+    margin-right: 5%;
+}
+
+
+body {
+    line-height: 200%;
+    text-align: left;
     margin: 0;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
     
