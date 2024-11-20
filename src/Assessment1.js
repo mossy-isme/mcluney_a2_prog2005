@@ -9,6 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 // Define the Client class
+/**
+ * Represents a client with various attributes such as VIP status, client ID, name, date of birth,
+ * gender, fitness program, contact information, joined date, ending date, and special health notes.
+ */
 class Client {
     constructor(isVIP, clientID, name, DOB, gender, fitnessProgram, contactInfo, joinedDate, endingDate, specialHealthNotes) {
         this.isVIP = isVIP;
@@ -22,6 +26,10 @@ class Client {
         this.endingDate = endingDate;
         this.specialHealthNotes = specialHealthNotes;
     }
+    /**
+     * Generates and returns a formatted HTML string containing client information for display.
+     * @returns {string} - The formatted HTML string with client information.
+     */
     displayClientInfo() {
         var _a;
         if (this.contactInfo.email == null) {
@@ -83,6 +91,10 @@ class Client {
 // Database of clients
 let clients = [];
 // Add client
+/**
+ * Adds a new client to the list of clients with the provided information.
+ * @returns void
+ */
 function addClient() {
     const clientID = Number(document.getElementById('clientID').value);
     const name = document.getElementById('name').value;
@@ -108,6 +120,11 @@ function addClient() {
     displayMessage('Client added successfully!', 'success');
 }
 // Display all clients
+/**
+ * Display client information on the webpage by populating the 'clientList' element with
+ * the information of each client in the 'clients' array.
+ * @returns void
+ */
 function displayClients() {
     const display = document.getElementById('clientList');
     display.innerHTML = clients
@@ -115,6 +132,12 @@ function displayClients() {
         .join('');
 }
 // Display VIP clients
+/**
+ * Displays a list of VIP clients on the webpage.
+ * Retrieves the element with the id 'clientList' and sets its innerHTML to the
+ * concatenated string of client information for each VIP client.
+ * @returns void
+ */
 function displayVIPClients() {
     const display = document.getElementById('clientList');
     display.innerHTML = clients
@@ -124,6 +147,10 @@ function displayVIPClients() {
 }
 // case insensitive search of n-number properties of type T
 // returns true if at least one of the property values includes the query value
+/**
+ * Searches for a client by their ID and displays their information on the client list.
+ * @returns None
+ */
 function clientIDSearch() {
     const id = document.getElementById("searchQuery").value;
     const display = document.getElementById('clientList');
@@ -133,6 +160,12 @@ function clientIDSearch() {
         .join('');
 }
 // Display a message
+/**
+ * Displays a message on the screen with the specified content and type.
+ * @param {string} message - The message to display.
+ * @param {'success' | 'error'} type - The type of message (success or error).
+ * @returns None
+ */
 function displayMessage(message, type) {
     const msgDiv = document.createElement('div');
     msgDiv.innerHTML = "<p style='text-align: centre'>" + message + "</p>";
@@ -150,10 +183,21 @@ function displayMessage(message, type) {
     setTimeout(() => msgDiv.remove(), 3000);
 }
 //Edit client
+/**
+ * Enables editing for a specific client card identified by the given ID.
+ * It removes the 'disabled' attribute from all input elements within the client card.
+ * @param {Number} id - The ID of the client card to be edited.
+ * @returns None
+ */
 function editClient(id) {
     document.querySelectorAll("#client-card-" + id.toString() + " *:disabled").forEach((input) => input.removeAttribute("disabled"));
 }
 //Delete client
+/**
+ * Deletes a client with the given ID after confirming with the user.
+ * @param {Number} id - The ID of the client to be deleted.
+ * @returns None
+ */
 function deleteClient(id) {
     return __awaiter(this, void 0, void 0, function* () {
         const confirmed = yield confirmDialog(); // Wait for user response
@@ -168,6 +212,10 @@ function deleteClient(id) {
     });
 }
 //Confirm dialog for deletion
+/**
+ * Displays a confirmation dialog with 'Yes' and 'No' buttons to the user.
+ * @returns A Promise that resolves to true if the user clicks 'Yes' and false if the user clicks 'No'.
+ */
 function confirmDialog() {
     return new Promise((resolve) => {
         // Create the modal backdrop
@@ -231,6 +279,11 @@ function confirmDialog() {
     });
 }
 //Update client
+/**
+ * Updates the client information based on the provided ID.
+ * @param {Number} id - The ID of the client to update.
+ * @returns None
+ */
 function updateClient(id) {
     document.querySelectorAll("#client-card-" + id.toString() + " .editable").forEach((input) => input.setAttribute("disabled", ""));
     const name = document.getElementById('name-' + id.toString()).value;

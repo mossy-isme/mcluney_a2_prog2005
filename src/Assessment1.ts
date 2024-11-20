@@ -1,4 +1,8 @@
 // Define the Client class
+/**
+ * Represents a client with various attributes such as VIP status, client ID, name, date of birth,
+ * gender, fitness program, contact information, joined date, ending date, and special health notes.
+ */
 class Client {
   isVIP: boolean;
   clientID: number;
@@ -55,6 +59,10 @@ class Client {
     this.specialHealthNotes = specialHealthNotes;
   }
 
+  /**
+   * Generates and returns a formatted HTML string containing client information for display.
+   * @returns {string} - The formatted HTML string with client information.
+   */
   displayClientInfo(): string {
     if (this.contactInfo.email == null) {
       var emailGiven = "None given"
@@ -112,6 +120,10 @@ class Client {
 let clients: Client[] = [];
 
 // Add client
+/**
+ * Adds a new client to the list of clients with the provided information.
+ * @returns void
+ */
 function addClient(): void {
   const clientID = Number(
     (document.getElementById('clientID') as HTMLInputElement).value
@@ -174,6 +186,11 @@ function addClient(): void {
 }
 
 // Display all clients
+/**
+ * Display client information on the webpage by populating the 'clientList' element with
+ * the information of each client in the 'clients' array.
+ * @returns void
+ */
 function displayClients(): void {
   const display = document.getElementById('clientList')!;
   display.innerHTML = clients
@@ -182,6 +199,12 @@ function displayClients(): void {
 }
 
 // Display VIP clients
+/**
+ * Displays a list of VIP clients on the webpage.
+ * Retrieves the element with the id 'clientList' and sets its innerHTML to the
+ * concatenated string of client information for each VIP client.
+ * @returns void
+ */
 function displayVIPClients(): void {
   const display = document.getElementById('clientList')!;
   display.innerHTML = clients
@@ -192,6 +215,10 @@ function displayVIPClients(): void {
 
 // case insensitive search of n-number properties of type T
 // returns true if at least one of the property values includes the query value
+/**
+ * Searches for a client by their ID and displays their information on the client list.
+ * @returns None
+ */
 function clientIDSearch(): void {
   const id = (document.getElementById("searchQuery") as HTMLInputElement).value;
   const display = document.getElementById('clientList')!;
@@ -203,6 +230,12 @@ function clientIDSearch(): void {
 
 
 // Display a message
+/**
+ * Displays a message on the screen with the specified content and type.
+ * @param {string} message - The message to display.
+ * @param {'success' | 'error'} type - The type of message (success or error).
+ * @returns None
+ */
 function displayMessage(message: string, type: 'success' | 'error'): void {
   const msgDiv = document.createElement('div');
   msgDiv.innerHTML = "<p style='text-align: centre'>"+message+"</p>";
@@ -221,12 +254,23 @@ function displayMessage(message: string, type: 'success' | 'error'): void {
 }
 
 //Edit client
+/**
+ * Enables editing for a specific client card identified by the given ID.
+ * It removes the 'disabled' attribute from all input elements within the client card.
+ * @param {Number} id - The ID of the client card to be edited.
+ * @returns None
+ */
 function editClient(id: Number) {
   document.querySelectorAll("#client-card-" + id.toString() + " *:disabled").forEach((input) => input.removeAttribute("disabled"))
 }
 
 
 //Delete client
+/**
+ * Deletes a client with the given ID after confirming with the user.
+ * @param {Number} id - The ID of the client to be deleted.
+ * @returns None
+ */
 async function deleteClient(id: Number) {
   const confirmed = await confirmDialog(); // Wait for user response
   if (confirmed) {
@@ -239,6 +283,10 @@ async function deleteClient(id: Number) {
 }
 
 //Confirm dialog for deletion
+/**
+ * Displays a confirmation dialog with 'Yes' and 'No' buttons to the user.
+ * @returns A Promise that resolves to true if the user clicks 'Yes' and false if the user clicks 'No'.
+ */
 function confirmDialog(): Promise<boolean> {
   return new Promise((resolve) => {
     // Create the modal backdrop
@@ -311,6 +359,11 @@ function confirmDialog(): Promise<boolean> {
 
 
 //Update client
+/**
+ * Updates the client information based on the provided ID.
+ * @param {Number} id - The ID of the client to update.
+ * @returns None
+ */
 function updateClient(id: Number) {
   document.querySelectorAll("#client-card-" + id.toString() + " .editable").forEach((input) => input.setAttribute("disabled", ""))
 
